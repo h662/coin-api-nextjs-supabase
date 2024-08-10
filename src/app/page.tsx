@@ -36,10 +36,12 @@ const Home: NextPage = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <ul className="flex flex-col items-center max-w-xl gap-2 my-8 mx-auto">
-      {visibleCoins.map((v, i) => (
-        <CoinCard key={i} coin={v} />
-      ))}
+    <div className="flex flex-col items-center my-8">
+      <ul className="flex flex-col items-center max-w-xl gap-2 mx-auto">
+        {visibleCoins.map((v, i) => (
+          <CoinCard key={i} coin={v} />
+        ))}
+      </ul>
       {visibleCoins.length < coins.length && (
         <button
           onClick={() => setCurrentPage(currentPage + 1)}
@@ -48,7 +50,7 @@ const Home: NextPage = () => {
           더보기
         </button>
       )}
-    </ul>
+    </div>
   );
 };
 

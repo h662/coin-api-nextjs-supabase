@@ -2,6 +2,7 @@ import { useAuth } from "@/context/AuthContext";
 import { supabaseClient } from "@/lib/supabaseClient";
 import Image from "next/image";
 import { FC, FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface CoinCardProps {
   coin: Coin;
@@ -13,19 +14,19 @@ const CoinCard: FC<CoinCardProps> = ({ coin }) => {
 
   const { session } = useAuth();
 
+  const router = useRouter();
+
   const onSubmitCreatePost = async (e: FormEvent) => {
     e.preventDefault();
 
     const { error } = await supabaseClient
       .from("posts")
-      .insert({ text, user_id: session?.user.id });
+      .insert({ text, coin: JSON.stringify(coin), user_id: session?.user.id });
 
     if (error) {
       console.error("Error fetching profile: ", error);
     } else {
-      console.log("success");
-
-      // router.push('/post/:postId') or router.push('/posts')
+      router.push("/posts");
     }
   };
 

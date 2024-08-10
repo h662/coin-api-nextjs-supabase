@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    const getProfile = async () => {
+    const fetchProfile = async () => {
       const { data, error } = await supabaseClient
         .from("profiles")
         .select("*")
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (!session) return;
 
-    getProfile();
+    fetchProfile();
   }, [session]);
 
   return (

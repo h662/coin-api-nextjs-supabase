@@ -19,3 +19,11 @@ interface Coin {
   price_change_24h: number;
   price_change_percentage_24h: number;
 }
+
+interface Post {
+  id: number;
+  created_at: string;
+  text: string;
+  coin: string;
+  user_id: string;
+}
