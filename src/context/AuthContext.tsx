@@ -12,12 +12,14 @@ import {
 
 interface AuthContextProps {
   session: Session | null;
+  profile: Profile | null;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
     supabaseClient.auth.getSession().then(({ data: { session } }) => {
@@ -33,8 +35,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => subscription.unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const getProfile = async () => {
+      const { data, error } = await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("user_id", session?.user.id);
+
+      if (error) {
+        console.error("Error fetching profile: ", error);
+      } else {
+        setProfile(data[0]);
+      }
+    };
+
+    if (!session) return;
+
+    getProfile();
+  }, [session]);
+
   return (
-    <AuthContext.Provider value={{ session }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ session, profile }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

@@ -6,7 +6,7 @@ import { FC } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 const Header: FC = () => {
-  const { session } = useAuth();
+  const { session, profile } = useAuth();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -17,7 +17,14 @@ const Header: FC = () => {
     <header className="bg-blue-100 p-4 flex justify-end gap-4">
       {session ? (
         <>
-          <span>{session?.user.email}</span>
+          <span>
+            Hello,{" "}
+            {profile
+              ? `${profile.nickname} #${session.user.id.substring(
+                  session.user.id.length - 4
+                )}`
+              : session.user.email}
+          </span>
           <button
             className="underline hover:text-gray-500"
             onClick={() => supabaseClient.auth.signOut()}
