@@ -42,7 +42,7 @@ const Home: NextPage = () => {
       ))}
       {visibleCoins.length < coins.length && (
         <button
-          onClick={() => setCurrentPage((prev) => prev + 1)}
+          onClick={() => setCurrentPage(currentPage + 1)}
           className="mt-4 p-2 bg-blue-500 text-white rounded"
         >
           더보기
