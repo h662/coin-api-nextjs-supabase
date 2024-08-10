@@ -27,3 +27,11 @@ interface Post {
   coin: string;
   user_id: string;
 }
+
+interface Comment {
+  id: number;
+  created_at: string;
+  text: string;
+  user_id: string;
+  post_id: number;
+}

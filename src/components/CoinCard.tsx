@@ -24,7 +24,7 @@ const CoinCard: FC<CoinCardProps> = ({ coin }) => {
       .insert({ text, coin: JSON.stringify(coin), user_id: session?.user.id });
 
     if (error) {
-      console.error("Error fetching profile: ", error);
+      console.error("Error creating post: ", error);
     } else {
       router.push("/posts");
     }
@@ -45,6 +45,7 @@ const CoinCard: FC<CoinCardProps> = ({ coin }) => {
                 : "text-blue-500"
             }
           >
+            {coin.price_change_percentage_24h > 0 ? "+" : ""}
             {coin.price_change_percentage_24h.toFixed(2)}%
           </span>
         </div>

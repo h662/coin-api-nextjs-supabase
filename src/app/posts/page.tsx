@@ -22,7 +22,7 @@ const Posts: NextPage = () => {
       );
 
     if (error) {
-      console.error("Error fetching profile: ", error);
+      console.error("Error fetching posts: ", error);
     } else {
       setPosts([...data, ...posts]);
       setCurrentPage(currentPage + 1);
@@ -34,8 +34,6 @@ const Posts: NextPage = () => {
   useEffect(() => {
     fetchPosts();
   }, []);
-
-  useEffect(() => console.log(currentPage), [currentPage]);
 
   return (
     <div className="flex flex-col items-center my-8">

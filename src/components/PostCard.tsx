@@ -1,5 +1,6 @@
 import { supabaseClient } from "@/lib/supabaseClient";
 import Image from "next/image";
+import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 
 interface PostCardProps {
@@ -52,8 +53,17 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
               : "text-blue-500"
           }
         >
+          {parsedCoin.price_change_percentage_24h > 0 ? "+" : ""}
           {parsedCoin.price_change_percentage_24h.toFixed(2)}%
         </span>
+      </div>
+      <div className="self-end">
+        <Link
+          className="p-1 text-xs bg-blue-100 text-blue-500 rounded"
+          href={`/post/${post.id}`}
+        >
+          더보기
+        </Link>
       </div>
     </li>
   );
