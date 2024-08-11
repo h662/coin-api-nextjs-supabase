@@ -1,6 +1,8 @@
 "use client";
 
 import CommentCard from "@/components/CommentCard";
+import LikeButton from "@/components/LikeButton";
+import PostLike from "@/components/PostLike";
 import { useAuth } from "@/context/AuthContext";
 import { supabaseClient } from "@/lib/supabaseClient";
 import { NextPage } from "next";
@@ -104,8 +106,11 @@ const Post: NextPage = () => {
     parsedCoin &&
     nickname && (
       <div className="w-full flex flex-col gap-1 justify-between m-4">
-        <div>
-          <span className="font-bold">{nickname}</span>님의 의견
+        <div className="flex">
+          <span className="font-bold">{nickname}</span>님의 의견{" "}
+          <span className="ml-2">
+            <PostLike postId={Number(id)} />
+          </span>
         </div>
         <div>{post.text}</div>
         <div className="flex gap-2">

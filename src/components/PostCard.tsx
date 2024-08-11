@@ -2,6 +2,7 @@ import { supabaseClient } from "@/lib/supabaseClient";
 import Image from "next/image";
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
+import PostLike from "./PostLike";
 
 interface PostCardProps {
   post: Post;
@@ -33,8 +34,11 @@ const PostCard: FC<PostCardProps> = ({ post }) => {
 
   return (
     <li className="border-2 border-black w-full flex flex-col gap-1 justify-between p-2">
-      <div>
+      <div className="flex">
         <span className="font-bold">{nickname}</span>님의 의견
+        <span className="ml-2">
+          <PostLike postId={post.id} />
+        </span>
       </div>
       <div>{post.text}</div>
       <div className="flex gap-2">
