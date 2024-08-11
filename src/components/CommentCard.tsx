@@ -4,6 +4,7 @@ import { supabaseClient } from "@/lib/supabaseClient";
 import { FC, useEffect, useState } from "react";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import { ko } from "date-fns/locale";
+import CommentLike from "./CommentLike";
 
 interface CommentCardProps {
   comment: Comment;
@@ -32,12 +33,15 @@ const CommentCard: FC<CommentCardProps> = ({ comment }) => {
   }, []);
 
   return (
-    <li>
+    <li className="flex">
       {comment.text} {nickname}{" "}
       {formatDistanceToNow(parseISO(comment.created_at), {
         locale: ko,
         addSuffix: true,
       })}
+      <span className="ml-2">
+        <CommentLike commentId={comment.id} />
+      </span>
     </li>
   );
 };
