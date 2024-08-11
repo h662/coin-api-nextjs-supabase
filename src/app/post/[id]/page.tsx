@@ -29,7 +29,16 @@ const Post: NextPage = () => {
     if (error) {
       console.error("Error creating comment: ", error);
     } else {
-      console.log("success");
+      const { data } = await supabaseClient
+        .from("comments")
+        .select("*")
+        .eq("post_id", id)
+        .order("id", { ascending: false })
+        .limit(1)
+        .single();
+
+      setComments([...comments, data]);
+      setText("");
     }
   };
 
